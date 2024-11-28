@@ -1,5 +1,5 @@
 export default class MysqlConnectionError extends Error {
   constructor() {
-    super('Mysql Connection Error');
+    super('Error al momento de intentar conectar');
   }
 }

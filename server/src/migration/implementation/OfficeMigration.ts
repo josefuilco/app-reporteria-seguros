@@ -10,8 +10,12 @@ export default class OfficeMigration extends BaseMigration {
       'office_name VARCHAR(25) NOT NULL'
     ]);
     await this.insertData('Office', ['office_name'], [
-      ['\'Administrador\''],
-      ['\'Usuario\'']
+      ['\'Lima\''],
+      ['\'Ica\''],
+      ['\'Pisco\''],
+      ['\'Chiclayo\''],
+      ['\'Piura\''],
+      ['\'Cusco\'']
     ]);
   }
   async down(): Promise<void> {}

@@ -53,7 +53,6 @@ export default abstract class BaseMigration {
       }
       baseQuery += `UNION ALL SELECT `;
       value.forEach((data: string, index: number) => {
-        console.log(value)
         if (index === value.length - 1) {
           baseQuery += `${ data } `;
           return;
