@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:8.0-debian
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=45admin21
+      - MYSQL_USER=fuilco
+      - MYSQL_PASSWORD=45213010Jo
+      - MYSQL_DATABASE=ReporteriaSegurosDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
