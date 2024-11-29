@@ -1,5 +1,5 @@
 import { Pool, PoolOptions, QueryResult, createPool } from 'mysql2/promise';
-import MysqlConnectionError from 'src/error/MySQLConnectionError';
+import MysqlConnectionError from 'src/error/mysql-connection.error';
 
 export default class MysqlConnection {
   //#region Atributtes

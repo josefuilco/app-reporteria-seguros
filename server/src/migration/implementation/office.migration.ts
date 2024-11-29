@@ -1,4 +1,4 @@
-import BaseMigration from '../base/BaseMigration';
+import BaseMigration from '../base/migration.base';
 
 export default class OfficeMigration extends BaseMigration {
   constructor() {

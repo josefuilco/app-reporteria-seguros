@@ -1,4 +1,4 @@
-import MysqlConnection from 'src/connection/MysqlConnection';
+import MysqlConnection from 'src/connection/mysql.connection';
 
 export default abstract class BaseMigration {
   //#region Atributtes
