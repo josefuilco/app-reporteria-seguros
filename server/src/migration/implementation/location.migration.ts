@@ -6,7 +6,7 @@ export default class LocationMigration extends BaseMigration {
   }
   async up(): Promise<void> {
     await this.createTable('Location', [
-      'location_id SMALLINT PRIMARY KEY',
+      'location_id INT PRIMARY KEY AUTO_INCREMENT',
       'loc_departament VARCHAR(20) NOT NULL',
       'loc_distrit VARCHAR(20) NOT NULL',
       'loc_province VARCHAR(20) NOT NULL',

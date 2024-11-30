@@ -6,7 +6,7 @@ export default class CostumerTypeMigration extends BaseMigration {
   }
   async up(): Promise<void> {
     await this.createTable('Costumer_Type', [
-      'costumetype_id SMALLINT PRIMARY KEY AUTO_INCREMENT',
+      'costumertype_id SMALLINT PRIMARY KEY AUTO_INCREMENT',
       'costumertype_name VARCHAR(30) NOT NULL'
     ]);
     await this.insertData('Costumer_Type', ['costumertype_name'], [
