@@ -3,12 +3,13 @@ import Role from "./role.model";
 import UserData from "./user-data.model";
 import UUID from "src/module/shared/domain/value-object/uuid.value-object";
 import Name from "src/module/shared/domain/value-object/name.value-object";
+import Password from "../value-object/password.value-object";
 
 export default class User {
   //#region Atributtes
   readonly #id: UUID;
   readonly #name: Name;
-  readonly #password: string;
+  readonly #password: Password;
   //#endregion
   //#region References
   #userData?: UserData;
@@ -19,7 +20,7 @@ export default class User {
   constructor(id: string, name: string, password: string) {
     this.#id = new UUID(id);
     this.#name = new Name(name);
-    this.#password = password;
+    this.#password = new Password(password);
   }
   //#region Methods
   getId(): string {
@@ -31,7 +32,7 @@ export default class User {
   }
 
   getPassword(): string {
-    return this.#password;
+    return this.#password.getValue();
   }
 
   setUserData(userData: UserData): void {
