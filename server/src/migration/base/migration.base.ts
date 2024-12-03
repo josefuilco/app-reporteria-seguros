@@ -8,6 +8,14 @@ export default abstract class BaseMigration {
     this.connection = MysqlConnection.getInstance();
   }
   //#region Protected Methods
+  protected async executeQuery(query: string): Promise<void> {
+    try {
+      await this.connection.execRawQuery(query);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   protected async createTable(name: string, columns: string[]): Promise<void> {
     let baseQuery = `CREATE TABLE IF NOT EXISTS ${ name } (`;
     columns.forEach((column, index) => {
@@ -17,7 +25,11 @@ export default abstract class BaseMigration {
       }
       baseQuery += `${ column }, `;
     });
-    await this.connection.execNonQuery(baseQuery);
+    try {
+      await this.connection.execNonQuery(baseQuery);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   protected async insertData(table: string, columns: string[], values: any[]): Promise<void> {
@@ -70,7 +82,11 @@ export default abstract class BaseMigration {
         baseQuery += `${ columns[index] } = ${ data }, `;
       });
     });
-    await this.connection.execNonQuery(baseQuery);
+    try {
+      await this.connection.execNonQuery(baseQuery);
+    } catch (err) {
+      console.error(err);
+    }
   }
   //#endregion
   //#region Override Methods

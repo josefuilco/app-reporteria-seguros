@@ -10,6 +10,8 @@ export default class User {
   readonly #id: UUID;
   readonly #name: Name;
   readonly #password: Password;
+  #officeId?: number;
+  #roleId?: number;
   //#endregion
   //#region References
   #userData?: UserData;
@@ -33,6 +35,22 @@ export default class User {
 
   getPassword(): string {
     return this.#password.getValue();
+  }
+
+  setOfficeId(officeId: number): void {
+    this.#officeId = officeId;
+  }
+
+  getOfficeId(): number {
+    return this.#officeId;
+  }
+
+  setRoleId(roleId: number): void {
+    this.#roleId = roleId;
+  }
+
+  getRoleId(): number {
+    return this.#roleId;
   }
 
   setUserData(userData: UserData): void {

@@ -7,6 +7,6 @@ export default interface IUserRepository {
   findUserById(id: UUID): Promise<User>;
   findUserIdByAuthentication(username: Name, password: Password): Promise<UUID>;
   saveUser(user: User): Promise<void>;
-  updateUser(id: UUID): Promise<void>;
+  updateUser(user: User): Promise<void>;
   deleteUser(id: UUID): Promise<void>;
 }

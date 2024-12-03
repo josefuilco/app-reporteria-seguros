@@ -29,8 +29,8 @@ export default class MysqlConnection {
     try {
       const [ result, _field ] = await connection.execute(query, parameters);
       return result;
-    } catch {
-      throw new MysqlConnectionError();
+    } catch (err) {
+      throw new MysqlConnectionError(err);
     } finally {
       connection.release();
     }
@@ -40,8 +40,19 @@ export default class MysqlConnection {
     const connection = await this.#pool.getConnection();
     try {
       await connection.execute(query, parameters);
-    } catch {
-      throw new MysqlConnectionError();
+    } catch (err) {
+      throw new MysqlConnectionError(err);
+    } finally {
+      connection.release();
+    }
+  }
+
+  async execRawQuery(query: string): Promise<void> {
+    const connection = await this.#pool.getConnection();
+    try {
+      await connection.query(query);
+    } catch (err) {
+      throw new MysqlConnectionError(err);
     } finally {
       connection.release();
     }

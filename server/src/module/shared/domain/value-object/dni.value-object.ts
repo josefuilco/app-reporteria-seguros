@@ -6,7 +6,7 @@ export default class DNI extends DOI {
   }
 
   checkDOI(): void {
-    if (this.value.length !== 8)
+    if (this.value.length !== 8 && typeof this.value !== 'number')
       throw new Error(`DNI Invalido: ${ this.value }`);
   }
 }
