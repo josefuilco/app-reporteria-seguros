@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
-import Migration from './migration';
+import Migration from './core/infrastructure/database/migration';
 
 async function bootstrap() {
   Migration.execute();
