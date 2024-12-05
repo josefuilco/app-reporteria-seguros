@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PasswordField from '@/module/shared/presentation/components/PasswordField.vue';
-import SubmitButton from '@/module/shared/presentation/components/SubmitButton.vue';
-import TextField from '@/module/shared/presentation/components/TextField.vue';
+import PasswordField from '@/core/components/PasswordField.vue';
+import SubmitButton from '@/core/components/SubmitButton.vue';
+import TextField from '@/core/components/TextField.vue';
 
 </script>
 

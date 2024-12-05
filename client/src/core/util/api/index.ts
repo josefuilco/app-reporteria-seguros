@@ -1,15 +1,15 @@
-import type { Url } from './types.data-provider'
+import type { Url } from './types.api'
 
-export default class DataProvider {
-  static #instance: DataProvider
+export default class Api {
+  static #instance: Api
   #url: Url
 
   private constructor() {
     this.#url = 'https://localhost:3000'
   }
 
-  static getInstance(): DataProvider {
-    this.#instance ??= new DataProvider()
+  static getInstance(): Api {
+    this.#instance ??= new Api()
     return this.#instance
   }
 

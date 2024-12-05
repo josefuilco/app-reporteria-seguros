@@ -1,5 +1,5 @@
 import './assets/main.css'
-import DataProvider from './util/data-provider'
+import Api from './core/util/api'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -10,7 +10,7 @@ import router from './router'
 const app = createApp(App)
 
 // Setting up Data Provider
-DataProvider
+Api
   .getInstance()
   .setUrl(import.meta.env.VITE_BACKEND_URL)
 
