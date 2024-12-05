@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 import Name from 'src/core/domain/value-object/name.value-object';
 import UUID from 'src/core/domain/value-object/uuid.value-object';
-import Password from '../../../../authentication/domain/value-object/password.value-object';
-import IUserRepository from '../../../../authentication/domain/repository/user.repository';
+import Password from 'src/authentication/domain/value-object/password.value-object';
+import IUserRepository from 'src/authentication/domain/repository/user.repository';
 import MysqlConnection from 'src/core/infrastructure/database/connection/mysql.connection';
-import User from '../../../../authentication/domain/model/user.model';
-import UserData from '../../../../authentication/domain/model/user-data.model';
-import { DefaultUserValue } from '../../../../authentication/domain/enums/default-user-value.enum';
+import User from 'src/authentication/domain/model/user.model';
+import UserData from 'src/authentication/domain/model/user-data.model';
+import { DefaultUserValue } from 'src/authentication/domain/enums/default-user-value.enum';
 
 @Injectable()
 export default class MysqlUserRepository implements IUserRepository {
