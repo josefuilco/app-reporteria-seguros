@@ -10,10 +10,13 @@ export class AuthGuard implements CanActivate {
     const request = getRequest() as UserRequest;
     const response = getResponse() as Response;
     request.user_id = request.headers.authorization;
-    if (request.user_id.length < 1) response.status(401).json({
-      message: 'Autenticación fallida',
-      error: 'Token de autenticación invalida'
-    });
+    if (request.user_id.length < 1) {
+      response.status(401).json({
+        message: 'Autenticación fallida',
+        error: 'Token de autenticación invalida'
+      });
+      return;
+    }
     return true;
   }
 }

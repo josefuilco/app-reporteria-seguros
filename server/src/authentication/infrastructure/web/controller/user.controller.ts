@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import UserService from '../../../application/service/user.service';
 import CreateUserDto from '../dto/create-user.dto';
@@ -11,7 +11,7 @@ import { UserRequest } from '../request/user.request';
 
 @Controller('/api/user')
 export class UserController {
-  constructor(private readonly _service: UserService) {}
+  constructor(private readonly _service: UserService, private readonly _logger: Logger) {}
 
   @Post('/')
   async createUser(@Body() body: CreateUserDto, @Res() res: Response): Promise<void> {
@@ -33,10 +33,12 @@ export class UserController {
       user.setOfficeId(body.office);
       user.setRoleId(body.role);
       await this._service.saveUser(user);
+      this._logger.log(`Register: ${ data.getNames() }`);
       res.status(200).json({
         message: 'Usuario creado'
       });
     } catch (error) {
+      this._logger.error(error.message);
       res.status(400).json({
         message: 'Usuario no registrado',
         error: error.message
@@ -50,11 +52,13 @@ export class UserController {
     try {
       const uuid = new UUID(req.user_id);
       const user = await this._service.findUserById(uuid);
+      this._logger.log(`Logged: ${ user.names }`);
       res.status(200).json({
         message: 'Busqueda de usuario exitosa',
         data: user
       });
     } catch (error) {
+      this._logger.error(error.message);
       res.status(500).json({
         message: 'Busqueda de usuario fallida',
         error: error.message

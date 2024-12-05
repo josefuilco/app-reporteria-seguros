@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module } from "@nestjs/common";
 import { UserController } from "./infrastructure/web/controller/user.controller";
 import { USER_REPOSITORY } from "./domain/repository/user.repository";
 import UserService from "./application/service/user.service";
@@ -11,7 +11,8 @@ import MysqlUserRepository from "./infrastructure/repository/mysql-user.reposito
     {
       provide: USER_REPOSITORY,
       useClass: MysqlUserRepository
-    }
+    },
+    Logger
   ]
 })
 export class AuthModule {}
