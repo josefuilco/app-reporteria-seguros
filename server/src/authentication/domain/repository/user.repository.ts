@@ -7,7 +7,7 @@ export const USER_REPOSITORY = Symbol('USER_REPOSITORY');
 
 export default interface IUserRepository {
   findUserById(id: UUID): Promise<User>;
-  findUserIdByAuthentication(username: Name, password: Password): Promise<UUID>;
+  findUserByAuthentication(username: Name, password: Password): Promise<User>;
   saveUser(user: User): Promise<void>;
   deleteUser(id: UUID): Promise<void>;
 }

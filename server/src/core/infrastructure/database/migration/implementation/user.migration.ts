@@ -64,6 +64,21 @@ export default class UserMigration extends BaseMigration{
         WHERE u.user_id = userId;
       END
     `);
+
+    await this.executeQuery(`
+      CREATE PROCEDURE IF NOT EXISTS UserAuthentication (
+        username VARCHAR(36)
+      )
+      BEGIN
+        SELECT
+          u.user_id AS id,
+          u.user_password AS password,
+          u.office_id AS office,
+          u.role_id AS role
+        FROM User u
+        WHERE u.user_name = username AND u.user_active = 1;
+      END
+    `);
   }
   async down(): Promise<void> {}
 }

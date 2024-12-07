@@ -7,6 +7,7 @@ import User from '../../domain/model/user.model';
 import { Inject, Injectable } from '@nestjs/common';
 import { Office } from '../../domain/constant/office.constants';
 import { Role } from '../../domain/constant/role.constants';
+import { AuthDTO } from '../dto/auth.dto';
 
 @Injectable()
 export default class UserService {
@@ -25,9 +26,9 @@ export default class UserService {
     );
   }
 
-  async authenticateUser(username: Name, password: Password): Promise<UUID> {
-    const userId = await this._repository.findUserIdByAuthentication(username, password);
-    return userId;
+  async authenticateUser(username: Name, password: Password): Promise<AuthDTO> {
+    const user = await this._repository.findUserByAuthentication(username, password);
+    return new AuthDTO(user.getId(), user.getOfficeId(), user.getRoleId());
   }
 
   async saveUser(user: User): Promise<void> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import Name from 'src/core/domain/value-object/name.value-object';
 import UUID from 'src/core/domain/value-object/uuid.value-object';
 import Password from 'src/authentication/domain/value-object/password.value-object';
@@ -38,12 +38,19 @@ export default class MysqlUserRepository implements IUserRepository {
     return currentUser;
   }
   
-  async findUserIdByAuthentication(username: Name, password: Password): Promise<UUID> {
-    const [ row ] = await this._connection.execQuery('CALL UserAuthentication (?, ?)', [
-      username.getValue(),
-      password.getValue()
-    ]);
-    return new UUID(row.uuid);
+  async findUserByAuthentication(username: Name, password: Password): Promise<User> {
+    const [ row ] = await this._connection.execQuery('CALL UserAuthentication (?)', [ username.getValue() ]);
+    if (!row) throw new Error('Cuenta inexistente');
+    const isEqual = await compare(password.getValue(), row.password);
+    if (!isEqual) throw new Error('Dato(s) incorrecto(s)');
+    const user = new User(
+      row.id,
+      DefaultUserValue.Nickname,
+      DefaultUserValue.Password
+    );
+    user.setOfficeId(row.office);
+    user.setRoleId(row.role);
+    return user;
   }
 
   async saveUser(user: User): Promise<void> {
