@@ -53,7 +53,7 @@ export class UserController {
     }
   }
 
-  @Get('/personal-data')
+  @Get('/')
   @UseGuards(AuthGuard)
   async findUserById(@Req() req: UserRequest, @Res() res: Response): Promise<void> {
     try {
@@ -68,6 +68,21 @@ export class UserController {
       this._logger.error(error.message);
       res.status(404).json({
         message: 'Busqueda de usuario fallida',
+        error: error.message
+      });
+    }
+  }
+
+  @Delete('/')
+  @UseGuards(AuthGuard)
+  async deleteAccount(@Req() req: UserRequest, @Res() res: Response): Promise<void> {
+    try {
+      await this._service.deleteUser(new UUID(req.user_id));
+      this._logger.log(`Id del usuario borrado: ${ req.user_id }`);
+      res.status(200).json({ message: 'Borrado de cuenta exitoso' });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Borrado de cuenta fallido',
         error: error.message
       });
     }
@@ -104,20 +119,20 @@ export class UserController {
     }
   }
 
-  @Delete('/')
+  @Delete('/sign-out')
   @UseGuards(AuthGuard)
-  async deleteAccount(@Req() req: UserRequest, @Res() res: Response): Promise<void> {
+  async signOut(@Req() req: UserRequest, @Res() res: Response): Promise<void> {
     try {
-      await this._service.deleteUser(new UUID(req.user_id));
-      this._logger.log(`Id del usuario borrado: ${ req.user_id }`);
-      res.status(200).json({ message: 'Borrado de cuenta exitoso' });
+      res.clearCookie('refresh-token');
+      res.status(200).json({ message: 'Sesión cerrada correctamente' });
     } catch (error) {
       res.status(500).json({
-        message: 'Borrado de cuenta fallido',
+        message: 'Sesión no existente',
         error: error.message
       });
     }
   }
+  
 
   @Get('/use-refresh-token')
   async useRefreshToken(@Req() req: UserRequest, @Res() res: Response): Promise<void> {
